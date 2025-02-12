@@ -20,7 +20,6 @@ const waitersDB = {
       );
       return { message: 'Waiter and related records deleted successfully' };
     } catch (err) {
-      console.error('Error deleting waiter:', err);
       throw err;
     }
   },
@@ -54,7 +53,6 @@ const waitersDB = {
       );
       return rows;
     } catch (error) {
-      console.log('Error in getMostSellingWaiters:', error);
       throw new Error('Failed to get most selling waiters');
     }
   },

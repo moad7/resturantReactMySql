@@ -9,12 +9,7 @@ function UpdateWaiterPage() {
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`${url}/${id}`)
-      .then((response) => setName(response.data.name))
-      .catch((err) => console.error('Error fetching waiter details:', err));
-  }, [id]);
+  useEffect(() => {});
 
   const handleSubmit = (e) => {
     e.preventDefault();

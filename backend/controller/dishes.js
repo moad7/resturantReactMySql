@@ -12,8 +12,7 @@ const controller = {
   addNewDishes: async (req, res) => {
     try {
       const { name, price, time, image } = req.body;
-      const result = await dishesService.addNewDishes(name, price, time, image);
-      res.json(result);
+      await dishesService.addNewDishes(name, price, time, image);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

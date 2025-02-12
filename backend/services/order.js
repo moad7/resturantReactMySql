@@ -29,7 +29,6 @@ const service = {
 
   addOrder: async (count) => {
     const orderId = await orderDB.addOrder(count);
-    console.log('Service: Added Order ID:', orderId);
     return orderId;
   },
 
@@ -43,16 +42,9 @@ const service = {
     }
     try {
       const queries = idDishes.map((dishId) => {
-        console.log(
-          'Adding order detail: idOrder:',
-          idOrder,
-          'idDishes:',
-          dishId
-        );
         return orderDB.addOrder_details(idOrder, dishId);
       });
       await Promise.all(queries);
-      console.log('Service: Added Order Details');
     } catch (error) {
       throw new Error('Failed to add order details');
     }
@@ -68,7 +60,6 @@ const service = {
       await orderDB.deleteOrderDetails(idOrder);
       await orderDB.deleteOrder(idOrder);
     } catch (error) {
-      console.log('Service Error in deleteOrder:', error);
       throw new Error('Failed to delete order and its details');
     }
   },

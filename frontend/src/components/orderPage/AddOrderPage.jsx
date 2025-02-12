@@ -15,16 +15,19 @@ function AddOrderPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
+    load();
+  }, []);
+  const load = async () => {
+    await axios
       .get(`${API_URL}/waiters`)
       .then((response) => setWaiters(response.data))
       .catch((err) => console.error('Error fetching waiters:', err));
 
-    axios
+    await axios
       .get(`${API_URL}/dishes`)
       .then((response) => setDishes(response.data))
       .catch((err) => console.error('Error fetching dishes:', err));
-  }, []);
+  };
 
   const handleDishSelection = (e) => {
     const selectedOptions = [...e.target.selectedOptions].map(
@@ -41,7 +44,7 @@ function AddOrderPage() {
     setTotalPrice(total);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!waiterId || selectedDishes.length === 0) {
@@ -50,13 +53,12 @@ function AddOrderPage() {
     }
 
     setLoading(true);
-
-    axios
-      .post(
-        `${API_URL}/order/addOrder`,
-        { idDishes: selectedDishes, idWaiters: waiterId, count: totalPrice },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+    await axios
+      .post(`${API_URL}/order/addOrder`, {
+        idDishes: selectedDishes,
+        idWaiters: waiterId,
+        count: totalPrice,
+      })
       .then(() => {
         alert('✅ Order added successfully!');
         navigate('/orders');

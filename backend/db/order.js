@@ -4,6 +4,12 @@ const orderDB = {
     return await db.query('SELECT * FROM `resturant`.`order`;');
   },
 
+  getOrderById: async (id) => {
+    return await db.query(
+      'SELECT * FROM `resturant`.`order` WHERE (`idOrder` = ?);',
+      [id]
+    );
+  },
   getAllOrdersWithDetails: async () => {
     return await db.query(`
       SELECT 
@@ -56,7 +62,6 @@ const orderDB = {
       );
       return rows;
     } catch (error) {
-      console.log('Error in getDailyRevenue:', error);
       throw new Error('Failed to get daily revenue');
     }
   },
@@ -72,7 +77,6 @@ const orderDB = {
       );
       return rows;
     } catch (error) {
-      console.log('Error in getMostOrderedDishes:', error);
       throw new Error('Failed to get most ordered dishes');
     }
   },
@@ -83,17 +87,13 @@ const orderDB = {
         'INSERT INTO `resturant`.`order` (`count`,`date`) VALUES (?,NOW());',
         [count]
       );
-      console.log('Inserted Order ID:', result.insertId);
       return result.insertId;
     } catch (error) {
-      console.log('Error in addOrder:', error);
       throw new Error('Failed to add order');
     }
   },
 
   addOrder_details: async (idOrder, idDishes) => {
-    console.log('idDishes: ' + idDishes + ' idOrder: ' + idOrder);
-
     try {
       return await db.query(
         'INSERT INTO `resturant`.`order_details` (`idOrder`, `idDishes`) VALUES (?, ?);',
@@ -105,10 +105,14 @@ const orderDB = {
   },
 
   addWaiter_orders: async (idWaiters, idOrder) => {
-    return await db.query(
-      'INSERT INTO `resturant`.`waiter_orders` (`idWaiters`, `idOrder`) VALUES (?, ?);',
-      [idWaiters, idOrder]
-    );
+    try {
+      return await db.query(
+        'INSERT INTO `resturant`.`waiter_orders` (`idWaiters`, `idOrder`) VALUES (?, ?);',
+        [idWaiters, idOrder]
+      );
+    } catch (error) {
+      throw new Error('Failed to add waiter');
+    }
   },
   deleteOrderDetails: async (idOrder) => {
     try {
@@ -116,10 +120,8 @@ const orderDB = {
         'DELETE FROM `resturant`.`order_details` WHERE `idOrder` = ?;',
         [idOrder]
       );
-      console.log('Deleted Order Details for Order ID:', idOrder);
       return result;
     } catch (error) {
-      console.log('Error in deleteOrderDetails:', error);
       throw new Error('Failed to delete order details');
     }
   },
@@ -130,10 +132,8 @@ const orderDB = {
         'DELETE FROM `resturant`.`order` WHERE `idOrder` = ?;',
         [idOrder]
       );
-      console.log('Deleted Order with ID:', idOrder);
       return result;
     } catch (error) {
-      console.log('Error in deleteOrder:', error);
       throw new Error('Failed to delete order');
     }
   },

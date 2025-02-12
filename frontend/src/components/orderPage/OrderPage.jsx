@@ -10,6 +10,10 @@ function OrdersPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    loadOrdersWithDetails();
+  }, []);
+
+  const loadOrdersWithDetails = async () => {
     axios
       .get(`${url}/getAllOrdersWithDetails`)
       .then((response) => {
@@ -46,16 +50,17 @@ function OrdersPage() {
         setOrders(groupedOrders);
       })
       .catch((err) => console.error('Error fetching orders:', err));
-  }, []);
+  };
 
-  const deleteOrder = (id) => {
+  const deleteOrder = async (id) => {
     if (!window.confirm('Are you sure you want to delete this order?')) return;
 
-    axios
+    await axios
       .delete(`${url}/deleteOrder/${id}`)
       .then(() => setOrders(orders.filter((o) => o.idOrder !== id)))
       .catch((err) => console.error('Error deleting order:', err));
   };
+  console.log(orders);
 
   return (
     <div className="container mt-4">
@@ -86,7 +91,7 @@ function OrdersPage() {
                   key={order.idOrder}
                   onClick={() =>
                     navigate(`/orders/details/${order.idOrder}`, {
-                      state: { orderDetails: order },
+                      state: { orderDetails: order, orders: orders },
                     })
                   }
                   style={{ cursor: 'pointer' }}
@@ -97,7 +102,14 @@ function OrdersPage() {
                   <td>
                     {order.dishes.map((dish) => dish.dishName).join(', ')}
                   </td>
-                  <td>{order.totalPrice}₪</td>
+                  <td>
+                    {order.dishes.reduce(
+                      (sum, dish) => sum + dish.dishPrice,
+                      0
+                    )}
+                    ₪
+                  </td>
+
                   <td>{new Date(order.date).toLocaleString()}</td>
                   <td>
                     <button

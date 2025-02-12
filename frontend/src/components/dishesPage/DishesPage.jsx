@@ -7,6 +7,15 @@ const url = 'http://127.0.0.1:3000/dishes';
 function DishesPage() {
   const [dishes, setDishes] = useState([]);
 
+  const handleDeleteDish = (dishId) => {
+    axios
+      .delete(`${url}/deleteDishesById/${dishId}`)
+      .then(() => {
+        alert('✅ Dish removed successfully!');
+        setDishes(dishes.filter((dish) => dish.idDishes !== dishId));
+      })
+      .catch((err) => console.error('Error removing dish:', err));
+  };
   useEffect(() => {
     axios
       .get(url)
@@ -91,7 +100,15 @@ function DishesPage() {
               <div
                 style={{ display: 'flex', justifyContent: 'center', gap: 10 }}
               >
-                <button className="btn btn-danger"> delete 🗑</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    handleDeleteDish(dish.idDishes);
+                  }}
+                >
+                  {' '}
+                  delete 🗑
+                </button>
                 <button className="btn btn-info"> edit ✏️</button>
               </div>
             </div>
