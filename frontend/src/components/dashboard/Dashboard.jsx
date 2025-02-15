@@ -1,10 +1,3 @@
-// import React from 'react';
-
-// function Dashboard() {
-//   return <div style={{ backgroundColor: '' }}>Dashboard</div>;
-// }
-
-// export default Dashboard;
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
@@ -31,7 +24,7 @@ function Dashboard() {
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4">📊 Dashboard</h2>
+      <h2 className="text-center mb-4">Dashboard 📊</h2>
 
       <div className="row">
         {/* Top Selling Waiters */}

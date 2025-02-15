@@ -8,10 +8,8 @@ import AddOrderPage from './components/orderPage/AddOrderPage';
 import DishesPage from './components/dishesPage/DishesPage';
 import AddDishPage from './components/dishesPage/AddDishPage';
 import AddWaiterPage from './components/waitersPage/AddWaiterPage';
-import TopWaitersPage from './components/waitersPage/TopWaitersPage';
 import WaitersPage from './components/waitersPage/WaitersPage';
 import UpdateWaiterPage from './components/waitersPage/UpdateWaiterPage';
-import UpdateOrderPage from './components/orderPage/UpdateOrderPage';
 import OrderDetailsPage from './components/orderPage/OrderDetailsPage';
 import UpdateDishe from './components/dishesPage/UpdateDishe';
 
@@ -24,7 +22,6 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/orders/new" element={<AddOrderPage />} />
-          <Route path="/orders/update/:id" element={<UpdateOrderPage />} />
           <Route path="/orders/details/:id" element={<OrderDetailsPage />} />
 
           <Route path="/dishes" element={<DishesPage />} />
@@ -32,7 +29,6 @@ function App() {
           <Route path="/dishes/update/:id" element={<UpdateDishe />} />
           <Route path="/waiters" element={<WaitersPage />} />
           <Route path="/waiters/new" element={<AddWaiterPage />} />
-          <Route path="/waiters/top" element={<TopWaitersPage />} />
           <Route path="/waiters/update/:id" element={<UpdateWaiterPage />} />
         </Routes>
       </Router>

@@ -121,13 +121,6 @@ function OrdersPage() {
                     >
                       Delete 🗑
                     </button>
-                    <Link
-                      to={`/orders/update/${order.idOrder}`}
-                      className="btn btn-info btn-sm"
-                      onClick={(e) => e.stopPropagation()} // Prevent row click when editing
-                    >
-                      Edit ✏️
-                    </Link>
                   </td>
                 </tr>
               ))
