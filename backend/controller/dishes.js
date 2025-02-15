@@ -49,8 +49,14 @@ const controller = {
   updateDishes: async (req, res) => {
     try {
       const id = req.params.id;
-      const { name, price, time } = req.body;
-      const result = await dishesService.updateDishes(name, price, time, id);
+      const { name, price, time, image } = req.body;
+      const result = await dishesService.updateDishes(
+        name,
+        price,
+        time,
+        image,
+        id
+      );
       res.json(result);
     } catch (error) {
       return res.status(500).json({ error: error.message });

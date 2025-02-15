@@ -13,6 +13,7 @@ import WaitersPage from './components/waitersPage/WaitersPage';
 import UpdateWaiterPage from './components/waitersPage/UpdateWaiterPage';
 import UpdateOrderPage from './components/orderPage/UpdateOrderPage';
 import OrderDetailsPage from './components/orderPage/OrderDetailsPage';
+import UpdateDishe from './components/dishesPage/UpdateDishe';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
           <Route path="/dishes" element={<DishesPage />} />
           <Route path="/dishes/new" element={<AddDishPage />} />
+          <Route path="/dishes/update/:id" element={<UpdateDishe />} />
           <Route path="/waiters" element={<WaitersPage />} />
           <Route path="/waiters/new" element={<AddWaiterPage />} />
           <Route path="/waiters/top" element={<TopWaitersPage />} />

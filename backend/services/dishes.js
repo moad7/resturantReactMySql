@@ -22,8 +22,14 @@ const service = {
     return data;
   },
 
-  updateDishes: async (name, price, time, id) => {
-    const [rows, fields] = await dishesDB.updateDishes(name, price, time, id);
+  updateDishes: async (name, price, time, image, id) => {
+    const [rows, fields] = await dishesDB.updateDishes(
+      name,
+      price,
+      time,
+      image,
+      id
+    );
     return rows;
   },
 };

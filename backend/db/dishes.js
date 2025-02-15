@@ -43,15 +43,17 @@ const dishesDB = {
       throw new Error('Failed to remove dish from order');
     }
   },
-  updateDishes: async (name, price, time, id) => {
+  updateDishes: async (name, price, time, image, id) => {
     try {
-      const [result] = await db.query(
-        'UPDATE `resturant`.`dishes` SET `name` = ?, `price` = ?, `time` = ? WHERE (`idDishes` = ?);',
-        [name, price, time, id]
+      const result = await db.query(
+        'UPDATE `resturant`.`dishes` SET `name` = ?, `price` = ?, `time` = ?, `image` = ? WHERE `idDishes` = ?;',
+        [name, price, time, image, id]
       );
-      return result;
+
+      return result; // Log to check structure
     } catch (error) {
-      throw new Error('Failed to update dish');
+      console.error('Database Update Error:', error);
+      throw new Error('Failed to update dish: ' + error.message);
     }
   },
 };

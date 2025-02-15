@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 
@@ -7,7 +7,7 @@ const url = 'http://127.0.0.1:3000/waiters';
 
 function WaitersPage() {
   const [waiters, setWaiters] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(url)
@@ -55,12 +55,16 @@ function WaitersPage() {
                     >
                       🗑 Delete
                     </button>
-                    <Link
-                      to={`/waiters/update/${waiter.idWaiters}`}
+                    <button
+                      onClick={() => {
+                        navigate(`/waiters/update/${waiter.idWaiters}`, {
+                          state: { waiterItem: waiter },
+                        });
+                      }}
                       className="btn btn-info btn-sm"
                     >
                       ✏️ Edit
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))

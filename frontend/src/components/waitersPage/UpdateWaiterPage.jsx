@@ -1,42 +1,61 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const url = 'http://127.0.0.1:3000/waiters';
+const API_URL = 'http://127.0.0.1:3000/waiters';
 
 function UpdateWaiterPage() {
   const { id } = useParams();
-  const [name, setName] = useState('');
+  const location = useLocation();
   const navigate = useNavigate();
+  const waiterItem = location.state.waiterItem || null;
 
-  useEffect(() => {});
+  const [name, setName] = useState(waiterItem.name || '');
+
+  console.log(waiterItem);
+
+  useEffect(() => {}, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
-      .put(`${url}/updateWaitersById/${id}`, { name })
+      .put(`${API_URL}/updateWaitersById/${id}`, { name })
       .then(() => {
-        alert('✅ تم تحديث النادل بنجاح!');
+        alert('Waiter updated successfully! ✅');
         navigate('/waiters');
       })
-      .catch((err) => console.error('Error updating waiter:', err));
+      .catch((err) => console.error('❌ Error updating waiter:', err));
   };
 
   return (
-    <div>
-      <h2>تعديل بيانات النادل</h2>
-      <form onSubmit={handleSubmit}>
-        <label>اسم النادل:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+    <div className="container mt-4">
+      <button
+        className="btn btn-secondary mb-3"
+        onClick={() => navigate('/waiters')}
+      >
+        🔙 Back to waiters list
+      </button>
 
-        <button type="submit">💾 حفظ التعديلات</button>
-      </form>
+      <div className="card shadow p-4">
+        <h2 className="mb-3">Edit waiter data 👨‍🍳</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Waiter's name:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            Save changes💾
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

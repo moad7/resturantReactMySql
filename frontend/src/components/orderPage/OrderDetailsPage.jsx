@@ -49,30 +49,6 @@ function OrderDetailsPage() {
       .catch((err) => console.error('Error updating waiter:', err));
   };
 
-  // const handleAddDish = async () => {
-  //   if (!newDishId) {
-  //     alert('⚠️ Please select a dish first.');
-  //     return;
-  //   }
-
-  //   await axios
-  //     .post(`${API_URL}/dishes/addDishToOrder`, {
-  //       idOrder: orderItem.idOrder,
-  //       idDishes: newDishId,
-  //     })
-  //     .then(() => {
-  //       alert('✅ Dish added successfully!');
-  //       const addedDish = dishes.find(
-  //         (d) => d.idDishes === parseInt(newDishId)
-  //       );
-  //       setOrderItem({
-  //         ...orderItem,
-  //         dishes: [...orderItem.dishes, addedDish],
-  //       });
-  //     })
-  //     .catch((err) => console.error('Error adding dish:', err));
-  // };
-
   const handleAddDish = async () => {
     if (!newDishId) {
       alert('⚠️ Please select a dish first.');

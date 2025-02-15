@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const url = 'http://127.0.0.1:3000/dishes';
 
 function DishesPage() {
   const [dishes, setDishes] = useState([]);
-
+  const navigate = useNavigate();
   const handleDeleteDish = (dishId) => {
     axios
       .delete(`${url}/deleteDishesById/${dishId}`)
@@ -106,10 +106,18 @@ function DishesPage() {
                     handleDeleteDish(dish.idDishes);
                   }}
                 >
-                  {' '}
                   delete 🗑
                 </button>
-                <button className="btn btn-info"> edit ✏️</button>
+                <button
+                  className="btn btn-info"
+                  onClick={() => {
+                    navigate(`/dishes/update/${dish.idDishes}`, {
+                      state: { dishesDetails: dish },
+                    });
+                  }}
+                >
+                  edit ✏️
+                </button>
               </div>
             </div>
           </div>
